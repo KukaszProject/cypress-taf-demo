@@ -12,6 +12,7 @@ function getConfigurationByFile(env) {
 }
 
 module.exports = defineConfig({
+  projectId: 'r74njs',
   reporter: 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,
