@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3]
+        containers: [1, 2]
     
     steps:
       - name: Checkout Code
@@ -22,9 +22,6 @@ jobs:
         run: |
           npm ci
           npm run lint
-
-      - name: Create Mochawesome JSON directory
-        run: mkdir -p cypress/reports/html/.jsons
 
       - name: Run Cypress Tests in Parallel
         uses: cypress-io/github-action@v6

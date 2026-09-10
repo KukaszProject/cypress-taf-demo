@@ -13,7 +13,7 @@ function getConfigurationByFile(env) {
 
 module.exports = defineConfig({
   projectId: 'r74njs',
-  reporter: 'cypress-mochawesome-reporter',
+  reporter: process.env.CI ? 'spec' : 'cypress-mochawesome-reporter',
   reporterOptions: {
     charts: true,
     reportPageTitle: 'Cypress TAF Report',
