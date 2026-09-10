@@ -11,20 +11,27 @@ function getConfigurationByFile(env) {
   return JSON.parse(fs.readFileSync(pathToConfigFile, 'utf-8'));
 }
 
+const isCI = process.env.CI === 'true';
+
 module.exports = defineConfig({
   projectId: 'r74njs',
-  reporter: process.env.CI ? 'spec' : 'cypress-mochawesome-reporter',
-  reporterOptions: {
-    charts: true,
-    reportPageTitle: 'Cypress TAF Report',
-    embeddedScreenshots: true,
-    inlineAssets: true,
-    saveAllAttempts: false,
-  },
+  reporter: isCI ? 'spec' : 'cypress-mochawesome-reporter',
+  
+  ...(isCI ? {} : {
+    reporterOptions: {
+      charts: true,
+      reportPageTitle: 'Cypress TAF Report',
+      embeddedScreenshots: true,
+      inlineAssets: true,
+      saveAllAttempts: false,
+    }
+  }),
 
   e2e: {
     setupNodeEvents(on, config) {
-      require('cypress-mochawesome-reporter/plugin')(on);
+      if (!isCI) {
+        require('cypress-mochawesome-reporter/plugin')(on);
+      }
       require('cypress-terminal-report/src/installLogsPrinter')(on);
       
       config = dotenvPlugin(config);
