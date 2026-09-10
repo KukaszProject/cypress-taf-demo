@@ -14,6 +14,7 @@ function getConfigurationByFile(env) {
 module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
+      config = dotenvPlugin(config);
       
       const environment = config.env.configFile || 'qa';
       const envConfig = getConfigurationByFile(environment);
