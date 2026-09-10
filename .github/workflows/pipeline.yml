@@ -9,22 +9,27 @@ on:
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2]
     
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Run Cypress Tests
+      - name: Install dependencies and Lint
+        run: |
+          npm ci
+          npm run lint
+
+      - name: Run Cypress Tests in Parallel
         uses: cypress-io/github-action@v6
         with:
+          record: true
+          parallel: true
           env: configFile=qa
         env:
           CYPRESS_SAUCE_PASSWORD: ${{ secrets.CYPRESS_SAUCE_PASSWORD }}
-
-      - name: Upload HTML Test Report
-        uses: actions/upload-artifact@v4
-        if: always() 
-        with:
-          name: mochawesome-report
-          path: cypress/reports/html
-          retention-days: 14
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
