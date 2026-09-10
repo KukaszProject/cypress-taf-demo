@@ -11,7 +11,7 @@ function getConfigurationByFile(env) {
   return JSON.parse(fs.readFileSync(pathToConfigFile, 'utf-8'));
 }
 
-const isCI = process.env.CI === 'true';
+const isCI = process.env.GITHUB_ACTIONS === 'true';
 
 module.exports = defineConfig({
   projectId: 'r74njs',
