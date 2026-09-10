@@ -1,0 +1,11 @@
+{
+    "plugins": ["cypress"],
+    "extends": ["plugin:cypress/recommended"],
+    "env": {
+        "cypress/globals": true
+    },
+    "rules": {
+        "cypress/no-unnecessary-waiting": "error",
+        "cypress/no-force": "warn"
+    }
+}

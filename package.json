@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint cypress/**/*.js",
+    "format": "prettier --write cypress/**/*.js",
+    "test:qa": "cypress run --env configFile=qa",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,17 @@
     "cypress-dotenv": "^3.0.1",
     "cypress-mochawesome-reporter": "^5.0.0",
     "cypress-terminal-report": "^7.3.3",
-    "dotenv": "^17.4.2"
+    "dotenv": "^17.4.2",
+    "eslint": "^10.10.0",
+    "eslint-plugin-cypress": "^7.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "prettier": "^3.9.6"
+  },
+  "lint-staged": {
+    "cypress/**/*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
   }
 }
