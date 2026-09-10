@@ -12,8 +12,20 @@ function getConfigurationByFile(env) {
 }
 
 module.exports = defineConfig({
+  reporter: 'cypress-mochawesome-reporter',
+  reporterOptions: {
+    charts: true,
+    reportPageTitle: 'Cypress TAF Report',
+    embeddedScreenshots: true,
+    inlineAssets: true,
+    saveAllAttempts: false,
+  },
+
   e2e: {
     setupNodeEvents(on, config) {
+      require('cypress-mochawesome-reporter/plugin')(on);
+      require('cypress-terminal-report/src/installLogsPrinter')(on);
+      
       config = dotenvPlugin(config);
       
       const environment = config.env.configFile || 'qa';
