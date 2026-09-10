@@ -13,6 +13,11 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
+import 'cypress-mochawesome-reporter/register';
+
+const installLogsCollector = require('cypress-terminal-report/src/installLogsCollector');
+installLogsCollector();
+
 // Import commands.js using ES2015 syntax:
 import './commands'
 import './commands/login-commands'

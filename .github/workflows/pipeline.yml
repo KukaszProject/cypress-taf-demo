@@ -1,0 +1,30 @@
+name: Cypress E2E Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Run Cypress Tests
+        uses: cypress-io/github-action@v6
+        with:
+          env: configFile=qa
+        env:
+          CYPRESS_SAUCE_PASSWORD: ${{ secrets.CYPRESS_SAUCE_PASSWORD }}
+
+      - name: Upload HTML Test Report
+        uses: actions/upload-artifact@v4
+        if: always() 
+        with:
+          name: mochawesome-report
+          path: cypress/reports/html
+          retention-days: 14

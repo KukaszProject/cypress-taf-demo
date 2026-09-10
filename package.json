@@ -21,6 +21,8 @@
   "devDependencies": {
     "cypress": "^16.0.0",
     "cypress-dotenv": "^3.0.1",
+    "cypress-mochawesome-reporter": "^5.0.0",
+    "cypress-terminal-report": "^7.3.3",
     "dotenv": "^17.4.2"
   }
 }
